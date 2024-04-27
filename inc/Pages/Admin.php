@@ -58,11 +58,11 @@ class Admin extends BaseController
 		$this->subpages = array(
 			array(
 				'parent_slug' => 'wpcareers_plugin', 
-				'page_title' => 'Custom Post Types', 
-				'menu_title' => 'CPT', 
+				'page_title' => 'Applications', 
+				'menu_title' => 'Applications', 
 				'capability' => 'manage_options', 
-				'menu_slug' => 'wpcareers_cpt', 
-				'callback' => array( $this->callbacks, 'adminCpt' )
+				'menu_slug' => 'wpcareers_applications', 
+				'callback' => array( $this->callbacks, 'adminApplications' )
 			)
 		);
 	}

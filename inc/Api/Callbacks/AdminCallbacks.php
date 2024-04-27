@@ -13,25 +13,11 @@ class AdminCallbacks extends BaseController
 		return require_once( "$this->plugin_path/templates/admin.php" );
 	}
 
-	public function adminCpt()
+	public function adminApplications()
 	{
-		return require_once( "$this->plugin_path/templates/cpt.php" );
+		return require_once( "$this->plugin_path/templates/applications.php" );
 	}
 
-	public function adminTaxonomy()
-	{
-		return require_once( "$this->plugin_path/templates/taxonomy.php" );
-	}
-
-	public function adminWidget()
-	{
-		return require_once( "$this->plugin_path/templates/widget.php" );
-	}
-
-	public function wpcareersOptionsGroup( $input )
-	{
-		return $input;
-	}
 
 	public function wpcareersAdminSection()
 	{
