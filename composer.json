@@ -1,0 +1,17 @@
+{
+    "name": "plugins/wordpresscareers",
+    "description": "The Complete Careers Plugin",
+    "type": "plugin",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Mohamed Khaled",
+            "email": "mokhaleddev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {"Inc\\": "./inc"}
+    }
+}
