@@ -47,7 +47,7 @@ class Admin extends BaseController
 				'capability' => 'manage_options', 
 				'menu_slug' => 'wpcareers_plugin', 
 				'callback' => array( $this->callbacks, 'adminDashboard' ), 
-				'icon_url' => 'dashicons-store', 
+				'icon_url' => 'dashicons-dashboard', 
 				'position' => 110
 			)
 		);
