@@ -16,7 +16,9 @@ final class Init
 			Pages\Admin::class,
 			Base\Enqueue::class,
 			Base\SettingsLinks::class,
-			Base\CPTController::class
+			Base\CPTController::class,
+			Base\TaxonomyController::class,
+			Base\TemplateController::class
 		];
 	}
 
