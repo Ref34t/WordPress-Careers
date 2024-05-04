@@ -4,14 +4,17 @@
  */
 namespace Inc\Base;
 
+use Inc\Base\BaseController;
 
-class CPTController
+
+class CPTController extends BaseController
 {
     public function register()
     {
         add_action('init', array($this, 'create_post_type'));
         add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
         add_action('save_post', array($this, 'save_meta_boxes'));
+        add_shortcode( 'careers_page', array( $this, 'careers_page' ) );
     }
 
     public function create_post_type()
@@ -166,4 +169,25 @@ class CPTController
 
         update_post_meta($post_id, '_job_info_1_key', $data);
     }
+
+    
+    public function careers_page($atts = [])
+    {
+        // normalize attribute keys, lowercase
+        $atts = array_change_key_case((array)$atts, CASE_LOWER);
+    
+        // override default attributes with user attributes
+        $wp_atts = shortcode_atts([
+                'title' => 'Open Positions',
+             ], $atts);
+    
+        // you can now use $wp_atts['title'] in your shortcode function
+        $title = $wp_atts['title'];
+    
+        ob_start();
+        require_once( "$this->plugin_path/templates/careers_shortcode.php" );
+        return ob_get_clean();
+    }
+    
+
 }

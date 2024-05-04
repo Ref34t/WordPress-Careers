@@ -16,7 +16,7 @@ class TemplateController extends BaseController
 		
 
 		$this->templates = array(
-			'page-templates/two-columns-tpl.php' => 'Two Columns Layout'
+			'page-templates/careers-page.php' => 'Careers Page'
 		);
 
 		add_filter( 'theme_page_templates', array( $this, 'custom_template' ) );
