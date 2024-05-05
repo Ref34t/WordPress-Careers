@@ -74,10 +74,12 @@ class CPTController extends BaseController
         $description = isset($data['description']) ? $data['description'] : '';
         $featured = isset($data['featured']) ? $data['featured'] : false;
         $status = isset($data['status']) ? $data['status'] : "";
+        $type = isset($data['type']) ? $data['type'] : "";
         $whatWillYouDo = isset($data['what']) ? $data['what'] : '';
         $about = isset($data['about']) ? $data['about'] : '';
         $bonus = isset($data['bonus']) ? $data['bonus'] : '';
         $benefits = isset($data['benefits']) ? $data['benefits'] : '';
+        $apply = isset($data['apply']) ? $data['apply'] : '';
 
 
         ?>
@@ -99,6 +101,17 @@ class CPTController extends BaseController
 
         <label for="job_info_featured">Featured</label>
         <input class="widefat" type="checkbox" id="job_info_featured" name="job_info_featured" value="1" <?= $featured ? 'checked' : ""; ?>>
+
+        </br></br>
+
+        <label for="job_info_type">Job Type</label>
+        </br>
+        <select name="job_info_type" class="widefat" id="job_info_type">
+            <option value="Full Time" <?= selected($type, 'Full Time', false) ?>>Full Time</option>
+            <option value="Part Time" <?= selected($type, 'Part Time', false) ?>>Part Time</option>
+            <option value="Contract" <?= selected($type, 'Contract', false) ?>>Contract</option>
+
+        </select>
 
         </br></br>
 
@@ -131,6 +144,12 @@ class CPTController extends BaseController
         <textarea id="job-info-benefits" name="job-info-benefits" class="widefat" value="<?= $benefits ?>"><?= $benefits?></textarea>
         </br></br>
 
+
+        <label for="job-info-apply">How To Apply</label>
+        </br>
+        <textarea id="job-info-apply" name="job-info-apply" class="widefat" value="<?= $apply ?>"><?= $apply?></textarea>
+        </br></br>
+
         <?php
     }
 
@@ -160,10 +179,12 @@ class CPTController extends BaseController
             'description' => sanitize_text_field($_POST['job_info_description']),
             'featured' => isset($_POST['job_info_featured']) ? 1 : 0,
             'status' => isset($_POST['job-info-status']) ? $_POST['job-info-status'] : '',
+            'type' => isset($_POST['job_info_type']) ? $_POST['job_info_type'] : '',
             'what' => sanitize_textarea_field( $_POST['job-info-what-will-you-do']),
             'about' => sanitize_textarea_field( $_POST['job-info-about']),
             'bonus' => sanitize_textarea_field( $_POST['job-info-bonus']),  
-            'benefits' => sanitize_textarea_field( $_POST['job-info-benefits']),  
+            'benefits' => sanitize_textarea_field( $_POST['job-info-benefits']),
+            'apply' => sanitize_textarea_field( $_POST['job-info-apply']),
 
         );
 
