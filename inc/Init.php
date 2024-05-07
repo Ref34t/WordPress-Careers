@@ -18,7 +18,8 @@ final class Init
 			Base\SettingsLinks::class,
 			Base\CPTController::class,
 			Base\TaxonomyController::class,
-			Base\TemplateController::class
+			Base\TemplateController::class,
+			Base\ApplicationsController::class,
 		];
 	}
 

@@ -15,6 +15,9 @@ class CPTController extends BaseController
         add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
         add_action('save_post', array($this, 'save_meta_boxes'));
         add_shortcode( 'careers_page', array( $this, 'careers_page' ) );
+        add_action('wp_ajax_submit_form', array($this, 'submit_form'));
+        add_action('wp_ajax_nopriv_submit_form', array($this, 'submit_form'));
+
     }
 
     public function create_post_type()
@@ -208,6 +211,52 @@ class CPTController extends BaseController
         ob_start();
         require_once( "$this->plugin_path/templates/careers_shortcode.php" );
         return ob_get_clean();
+    }
+
+    public function submit_form()
+    {
+
+        $name = sanitize_text_field( $_POST['name']);
+        $email = sanitize_email( $_POST['email']);
+        $country = sanitize_text_field( $_POST['country']);
+        $cover = sanitize_textarea_field( $_POST['coverletter']);
+
+        $data = array(
+            'name' => $name,
+            'email' => $email,
+            'country' => $country,
+            'cover' => $cover,
+        );
+
+        $args = array(
+            'post_title' => 'Application from ' . $name,
+            'post_content' => $email . $country . $cover,
+            'post_author' => 1,
+            'post_status' => 'publish',
+            'post_type' => 'application'
+
+        );
+
+        $postID = wp_insert_post( $args);
+
+        if ($postID) {
+           $return = array(
+            'status' => 'success',
+            'ID' => $postID
+           );
+
+           wp_send_json($return);
+
+           wp_die();
+        }
+
+        $return = array(
+            'status' => 'error'
+        );
+
+        wp_send_json($return);
+
+        wp_die();
     }
     
 

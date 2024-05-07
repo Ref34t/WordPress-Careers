@@ -61,7 +61,7 @@ class Admin extends BaseController
 				'page_title' => 'Applications', 
 				'menu_title' => 'Applications', 
 				'capability' => 'manage_options', 
-				'menu_slug' => 'wpcareers_applications', 
+				'menu_slug' => 'wpcareers_applications',
 				'callback' => array( $this->callbacks, 'adminApplications' )
 			)
 		);
