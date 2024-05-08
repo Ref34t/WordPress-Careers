@@ -2,7 +2,7 @@
 <?php
 $args = array(
     'post_type'      => 'application',
-    'posts_per_page' => 10, // Number of applications per page
+    'posts_per_page' => 20, // Number of applications per page
     'paged'          => isset($_GET['paged']) ? max(1, intval($_GET['paged'])) : 1,
     'post_status' => array('publish', 'pending', 'draft') // Include draft and pending posts
 );
@@ -14,8 +14,13 @@ if ($applications_query->have_posts()) {
   echo '<table class="wp-list-table widefat fixed striped pages">';
   echo '<thead>';
   echo '<tr>';
-  echo '<th scope="col" class="manage-column column-title sortable desc">'. __('Title', 'text-domain') .'</th>'; // Added scope and class attributes
-  echo '<th scope="col" class="manage-column column-date sortable desc">'. __('Date', 'text-domain') .'</th>'; // Added scope and class attributes
+  echo '<th scope="col" class="manage-column column-job  desc" data-sort="job">'. __('Job', 'text-domain') .'</th>'; // Added scope and class attributes
+  echo '<th scope="col" class="manage-column column-title  desc" data-sort="title">'. __('Name', 'text-domain') .'</th>'; // Added scope and class attributes
+  echo '<th scope="col" class="manage-column column-email  desc" data-sort="email">'. __('Email Address', 'text-domain') .'</th>'; // Added scope and class attributes
+  echo '<th scope="col" class="manage-column column-country  desc" data-sort="country"> '. __('Country', 'text-domain') .'</th>'; // Added scope and class attributes
+  echo '<th scope="col" class="manage-column column-resume  desc" data-sort="resume"> '. __('Resume', 'text-domain') .'</th>'; // Added scope and class attributes
+  echo '<th scope="col" class="manage-column column-coverletter  desc" data-sort="coverletter">'. __('Coverletter', 'text-domain') .'</th>'; // Added scope and class attributes
+  echo '<th scope="col" class="manage-column column-date  desc" data-sort="date">'. __('Date', 'text-domain') .'</th>'; // Added scope and class attributes
   // Add more table headers for additional columns
   echo '</tr>';
   echo '</thead>';
@@ -24,8 +29,21 @@ if ($applications_query->have_posts()) {
     $applications_query->the_post();
     $title = get_the_title();
     $date = get_the_date('', $applications_query->post->ID);
+    $data = get_post_meta($applications_query->post->ID, '_application_data_key', true);
+    $email = isset($data['email']) ? $data['email'] : '';
+    $country = isset($data['country']) ? $data['country'] : '';
+    $cover = isset($data['cover']) ? $data['cover'] : "";
+    $job_id = isset($data['job']) ? $data['job'] : '';
+    $resume = isset($data['resume']) ? $data['resume'] : '';
+    $job_title = get_the_title($job_id);
+    $job_url = get_permalink($job_id);
     echo '<tr>';
-    echo '<td class="column-title"><a href="' . get_permalink() . '">' . $title . '</a></td>';
+    echo '<td class="column-job"><a href="' . $job_url . '">' . $job_title . '</a></td>';
+    echo '<td class="column-title"><p>' . $title . '</p></td>';
+    echo '<td class="column-email"><p>' . $email . '</p></td>';
+    echo '<td class="column-country"><p>' . $country . '</p></td>';
+    echo '<td class="column-resume"><p>' . $resume . '</p></td>';
+    echo '<td class="column-cover"><p>' . $cover . '</p></td>';
     echo '<td class="column-date">' . $date . '</td>';
     // Add more table cells with class names for additional columns
     echo '</tr>';
@@ -58,4 +76,4 @@ if ($applications_query->have_posts()) {
 }
 
 wp_reset_postdata();
-?>
+

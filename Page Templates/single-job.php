@@ -53,7 +53,7 @@ if (!empty($meta_array) && is_array($meta_array)) {
             <span class="close">&times;</span>
             <h3 class="job-application-form_title">Apply For <?php the_title() ?></h3>
             <form id="job-application-form" action="#" method="post"
-                data-url="<?php echo admin_url('admin-ajax.php'); ?>">
+                data-url="<?php echo admin_url('admin-ajax.php'); ?>" enctype="multipart/form-data">
 
                 <div class="field-container">
                     <label for="name">Your Name</label>
@@ -97,6 +97,7 @@ if (!empty($meta_array) && is_array($meta_array)) {
                         again!</small>
                 </div>
 
+                <input type="hidden" name="job" value="<?= $post_id;?>">
                 <input type="hidden" name="action" value="submit_form">
                 <input type="hidden" name="nonce" value="<?php echo wp_create_nonce("applyform-nonce") ?>">
 

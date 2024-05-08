@@ -39,48 +39,46 @@ document.addEventListener("DOMContentLoaded", function() {
 
     reset_messages();
 
-    let data = {
-      name: applyForm.querySelector('[name="name"]').value,
-      email: applyForm.querySelector('[name="email"]').value,
-      country: applyForm.querySelector('[name="country"]').value,
-      coverletter: applyForm.querySelector('[name="coverletter"]').value,
-      resume: applyForm.querySelector('[name="custom_file"]').value,
-    }
+    
+  // Create a new FormData instance
+  let formData = new FormData(applyForm);
 
-    if (! data.name) {
-      applyForm.querySelector('[data-error="invalidName"]').classList.add('show');
-      return;
-    }
+  // Check if the form is valid
+  if (!formData.get('name')) {
+    applyForm.querySelector('[data-error="invalidName"]').classList.add('show');
+    return;
+  }
 
-    if (! validateEmail(data.email)) {
-      applyForm.querySelector('[data-error="invalidEmail"]').classList.add('show');
-      return;
-    }
+  if (!validateEmail(formData.get('email'))) {
+    applyForm.querySelector('[data-error="invalidEmail"]').classList.add('show');
+    return;
+  }
 
-    if (! data.country) {
-      applyForm.querySelector('[data-error="invalidCountry"]').classList.add('show');
-      return;
-    }
+  if (!formData.get('country')) {
+    applyForm.querySelector('[data-error="invalidCountry"]').classList.add('show');
+    return;
+  }
 
-    if (! data.coverletter) {
-      applyForm.querySelector('[data-error="invalidCoverletter"]').classList.add('show');
-      return;
-    }
+  if (!formData.get('coverletter')) {
+    applyForm.querySelector('[data-error="invalidCoverletter"]').classList.add('show');
+    return;
+  }
 
-    if(! data.resume) {
-      applyForm.querySelector('[data-error="invalidResume"]').classList.add('show');
-      return;
-    }
+  if (!formData.get('custom_file')) {
+    applyForm.querySelector('[data-error="invalidResume"]').classList.add('show');
+    return;
+  }
 
     let url = applyForm.dataset.url;
 
-    let params = new URLSearchParams(new FormData(applyForm));
+    //let params = new URLSearchParams(new FormData(applyForm));
+    
 
     applyForm.querySelector('.js-form-submission').classList.add('show');
 
     fetch(url, {
       method: "POST",
-      body: params,
+      body: formData,
 
     }).then(res => res.json())
       .catch(error => {
@@ -94,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
           applyForm.querySelector('.js-form-error').classList.add('show');
           return;
         }
- 
         applyForm.querySelector('.js-form-success').classList.add('show');
         applyForm.reset();
 
@@ -115,4 +112,3 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
   
-   
